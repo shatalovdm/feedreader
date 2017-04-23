@@ -19,6 +19,10 @@ $ python -m SimpleHTTPServer 8080
 
 3. Open `localhost:8080` in your browser. 
 
+### Demo
+
+The demo version is available for use [here](http://dshatalov.com/feedreader/).
+
 ## License
 
 This project is released under the [MIT License](https://opensource.org/licenses/MIT).  
