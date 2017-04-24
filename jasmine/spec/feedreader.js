@@ -19,7 +19,7 @@ $(function() {
         it('urls are difined', function() {
             var feed;
             for (var i = 0; i < allFeeds.length; i++) {
-                feed = allFeeds[0];
+                feed = allFeeds[i];
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
             }
@@ -32,7 +32,7 @@ $(function() {
          it('names are defined', function() {
             var feed;
             for (var i = 0; i < allFeeds.length; i++) {
-                feed = allFeeds[0];
+                feed = allFeeds[i];
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
             }
@@ -44,7 +44,7 @@ $(function() {
          * hidden by default.
          */
          it('is hidden by default', function() {
-            expect($('body').attr('class')).toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
          /* Ensure the menu changes
@@ -52,9 +52,9 @@ $(function() {
           */
           it('changes visibility when the menu icon is clicked', function() {
             $('.menu-icon-link').trigger('click');
-            expect($('body').attr('class')).not.toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             $('.menu-icon-link').trigger('click');
-            expect($('body').attr('class')).toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
           });
     });
 
@@ -68,7 +68,7 @@ $(function() {
         });
 
         it('have at least a single .entry element',function () {
-            expect($('.entry').length).not.toBe(0);
+            expect($('.feed .entry').length).not.toBe(0);
         });
     });
 
@@ -79,15 +79,19 @@ $(function() {
         var header1;
         var header2;
         beforeEach(function (done) {
-            loadFeed(0, done);
-            header1 = $('h2:first').text();
+            loadFeed(0, function() {
+                header1 = $('h2:first').text();
+                done();
+            });
         });
         beforeEach(function (done) {
-            loadFeed(2, done);
-            header2 = $('h2:first').text();
+             loadFeed(1, function() {
+                header2 = $('h2:first').text();
+                done();
+            });
         });
 
-        it('is different from the old one',function (done) {
+        it('is different from the old one',function () {
             expect(header1).not.toBe(header2);
         });
     });
